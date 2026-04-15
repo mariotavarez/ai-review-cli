@@ -1,0 +1,95 @@
+<svg width="820" height="580" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 580">
+  <defs>
+    <style>text { font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', Menlo, monospace; }</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#010409"/>
+    </linearGradient>
+  </defs>
+  <rect width="820" height="580" rx="12" fill="url(#bg)"/>
+  <rect width="820" height="42" rx="12" fill="#161b22"/>
+  <rect y="22" width="820" height="20" fill="#161b22"/>
+  <circle cx="24" cy="21" r="6.5" fill="#ff5f56"/>
+  <circle cx="46" cy="21" r="6.5" fill="#ffbd2e"/>
+  <circle cx="68" cy="21" r="6.5" fill="#27c93f"/>
+  <text x="410" y="26" font-size="12" fill="#8b949e" text-anchor="middle" dominant-baseline="middle">zsh — 82×30</text>
+
+  <!-- Command -->
+  <text x="20" y="68" font-size="13.5">
+    <tspan fill="#3fb950">❯</tspan>
+    <tspan fill="#c9d1d9"> ai-review review</tspan>
+  </text>
+
+  <!-- Spinner / analysis -->
+  <text x="20" y="90" font-size="13">
+    <tspan fill="#58a6ff">⠸</tspan>
+    <tspan fill="#8b949e"> Analyzing staged changes…  </tspan>
+    <tspan fill="#c9d1d9">3 files</tspan><tspan fill="#8b949e">  ·  </tspan><tspan fill="#3fb950">+127</tspan><tspan fill="#8b949e"> / </tspan><tspan fill="#f85149">-43</tspan>
+  </text>
+
+  <!-- Review box -->
+  <text x="20" y="118" font-size="13" fill="#8b949e">┌────────────────────────────────────────────────────────────┐</text>
+  <text x="20" y="136" font-size="13">
+    <tspan fill="#8b949e">│  </tspan><tspan fill="#e6edf3" font-weight="bold">Code Review</tspan><tspan fill="#8b949e">    Score: </tspan><tspan fill="#3fb950" font-weight="bold">84 / 100</tspan><tspan fill="#8b949e">    Risk: </tspan><tspan fill="#3fb950" font-weight="bold">LOW</tspan><tspan fill="#8b949e">               │</tspan>
+  </text>
+  <text x="20" y="154" font-size="13">
+    <tspan fill="#8b949e">│  </tspan><tspan fill="#8b949e">Good auth implementation with solid input validation</tspan><tspan fill="#8b949e">        │</tspan>
+  </text>
+  <text x="20" y="172" font-size="13" fill="#8b949e">└────────────────────────────────────────────────────────────┘</text>
+
+  <!-- Score bar -->
+  <text x="20" y="196" font-size="13">
+    <tspan fill="#8b949e">  </tspan>
+    <tspan fill="#3fb950">████████████████░░░░</tspan>
+    <tspan fill="#8b949e">  84%</tspan>
+  </text>
+
+  <!-- Critical (0) -->
+  <text x="20" y="222" font-size="13">
+    <tspan fill="#f85149" font-weight="bold">🔴 CRITICAL</tspan><tspan fill="#8b949e">  (0)</tspan>
+  </text>
+  <text x="20" y="239" font-size="13" fill="#8b949e">    No critical issues found</text>
+
+  <!-- Warning (1) -->
+  <text x="20" y="263" font-size="13">
+    <tspan fill="#d29922" font-weight="bold">🟡 WARNING</tspan><tspan fill="#8b949e">  (1)</tspan>
+  </text>
+  <text x="20" y="281" font-size="13">
+    <tspan fill="#d29922">  ⚠  </tspan><tspan fill="#58a6ff">src/auth/middleware.ts</tspan>
+  </text>
+  <text x="20" y="298" font-size="13">
+    <tspan fill="#8b949e">     No rate limiting on login endpoint — brute force risk</tspan>
+  </text>
+
+  <!-- Suggestion (3) -->
+  <text x="20" y="322" font-size="13">
+    <tspan fill="#58a6ff" font-weight="bold">💡 SUGGESTION</tspan><tspan fill="#8b949e">  (3)</tspan>
+  </text>
+  <text x="20" y="340" font-size="13">
+    <tspan fill="#58a6ff">  ◎  </tspan><tspan fill="#58a6ff">src/api/users.ts</tspan><tspan fill="#8b949e">   — Consider caching this DB query (called in loop)</tspan>
+  </text>
+  <text x="20" y="357" font-size="13">
+    <tspan fill="#58a6ff">  ◎  </tspan><tspan fill="#58a6ff">src/utils/hash.ts</tspan><tspan fill="#8b949e">  — Use crypto.timingSafeEqual for comparison</tspan>
+  </text>
+  <text x="20" y="374" font-size="13">
+    <tspan fill="#58a6ff">  ◎  </tspan><tspan fill="#58a6ff">src/types.ts</tspan><tspan fill="#8b949e">       — Add JSDoc to exported interfaces</tspan>
+  </text>
+
+  <!-- Praise (2) -->
+  <text x="20" y="398" font-size="13">
+    <tspan fill="#3fb950" font-weight="bold">✅ PRAISE</tspan><tspan fill="#8b949e">  (2)</tspan>
+  </text>
+  <text x="20" y="416" font-size="13">
+    <tspan fill="#3fb950">  ★  </tspan><tspan fill="#c9d1d9">Clean separation of concerns across modules</tspan>
+  </text>
+  <text x="20" y="433" font-size="13">
+    <tspan fill="#3fb950">  ★  </tspan><tspan fill="#c9d1d9">Comprehensive TypeScript types with no any casts</tspan>
+  </text>
+
+  <!-- Footer -->
+  <text x="20" y="460" font-size="13" fill="#8b949e">────────────────────────────────────────────────────────────</text>
+  <text x="20" y="480" font-size="13">
+    <tspan fill="#8b949e">  </tspan><tspan fill="#d29922">1 warning</tspan><tspan fill="#8b949e">  ·  </tspan><tspan fill="#58a6ff">3 suggestions</tspan><tspan fill="#8b949e">  ·  </tspan><tspan fill="#3fb950">2 praise</tspan><tspan fill="#8b949e">  ·  Powered by Claude</tspan>
+  </text>
+  <text x="20" y="500" font-size="13" fill="#8b949e">  Run ai-review commit to generate an AI commit message</text>
+</svg>

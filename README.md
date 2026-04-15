@@ -1,160 +1,166 @@
-# ai-review-cli
+<div align="center">
 
-> AI-powered code review in your terminal — powered by Claude
+# 🔍 ai-review-cli
 
-![Node.js 20+](https://img.shields.io/badge/node-%3E%3D20-brightgreen)
-![TypeScript 5.7](https://img.shields.io/badge/typescript-5.7-blue)
-![Claude API](https://img.shields.io/badge/claude-api-orange)
-![MIT License](https://img.shields.io/badge/license-MIT-green)
+**A senior engineer in your terminal — powered by Claude.**
+
+Get instant, structured code reviews on your staged changes. Catch bugs, security issues, and bad patterns before they ever reach your teammates.
+
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Claude API](https://img.shields.io/badge/Claude-API-D97757?logo=anthropic&logoColor=white)](https://anthropic.com)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+<img src=".github/demo.svg" alt="ai-review-cli demo" width="700"/>
+
+</div>
 
 ---
 
+## Why ai-review-cli?
+
+Code review is the most valuable part of the dev workflow — and the most often skipped when you're in a hurry.
+
+`ai-review-cli` gives you a thorough review of every change before you push, without waiting for a colleague. It spots security holes, suggests optimizations, and praises what you got right — all inside your terminal.
+
+```bash
+npx ai-review-cli review
 ```
-╭──────────────────── ai-review ────────────────────╮
-│                                                    │
-│  Score   87/100  ████████████████░░░░             │
-│  Risk    LOW RISK                                  │
-│                                                    │
-│  Summary                                           │
-│  Clean refactor with solid type safety. One null   │
-│  check is missing before accessing user fields.    │
-│                                                    │
-│  ── Critical (1) ──────────────────────────────── │
-│  ✖ CRITICAL  src/auth/login.ts                    │
-│  Possible null dereference on `findUser()` result. │
-│                                                    │
-│  ── Warning (2) ───────────────────────────────── │
-│  ⚠ WARNING   src/api/client.ts                    │
-│  Missing error handling on async fetch.            │
-│                                                    │
-│  ── Praise (2) ────────────────────────────────── │
-│  ✔ PRAISE    src/utils/types.ts                   │
-│  Excellent generic constraints — very tight types. │
-│                                                    │
-│  Actionable Suggestions                            │
-│  1. Add a null check after calling findUser()      │
-│  2. Wrap fetch calls in try/catch                  │
-│                                                    │
-│  ────────────────────────────────────────────────  │
-│  Issues: 1 critical · 2 warnings · 2 praise        │
-╰────────────────────────────────────────────────────╯
-```
+
+No PR required. No context switching. Just better code.
 
 ---
 
 ## Features
 
-- **Review staged changes** — `ai-review review` sends your `git diff --cached` to Claude and returns a structured, colour-coded review
-- **AI commit messages** — `ai-review commit` generates a [Conventional Commits](https://www.conventionalcommits.org/) message and optionally commits for you
-- **Code explanation** — `ai-review explain <file>` gives you a plain-English walkthrough of any file (or a specific function inside it)
-- **Score system** — every review includes a 0–100 quality score coloured green / yellow / red
-- **Severity levels** — comments are classified as `critical`, `warning`, `suggestion`, or `praise` and rendered with distinct icons and colours
-- **Risk badge** — `LOW RISK` / `MEDIUM RISK` / `HIGH RISK` at a glance
-- **Demo mode** — works without an API key using realistic mock data, so you can explore the UI immediately
+- **Instant Code Review** — Analyzes your staged diff and returns a structured review in seconds
+- **Severity Scoring** — Issues ranked as Critical / Warning / Suggestion / Praise, so you know what to fix first
+- **100-Point Score** — At a glance quality score with risk level (Low / Medium / High)
+- **AI Commit Messages** — Generate conventional commit messages from your staged changes
+- **Code Explanation** — Ask Claude to explain any file or function in plain English
+- **Demo Mode** — Works without an API key — try it before you commit to anything
+- **Works anywhere** — Staged changes, last commit, or any specific file
 
 ---
 
-## Installation
-
-### From source
+## Quick Start
 
 ```bash
-git clone https://github.com/mariotavarez/ai-review-cli.git
-cd ai-review-cli
-npm install
-npm run build
-npm link          # makes `ai-review` available globally
+# Try it now — no API key needed (demo mode)
+npx ai-review-cli review
+
+# With real Claude reviews
+export ANTHROPIC_API_KEY=sk-ant-...
+npx ai-review-cli review
 ```
 
-### Requirements
+---
 
-- **Node.js 20+**
-- An **Anthropic API key** (optional — see Demo Mode below)
+## Commands
+
+### `review` — Review your staged changes
+
+```bash
+ai-review review                    # Review staged changes (default)
+ai-review review --last-commit      # Review the last commit
+ai-review review --file src/api.ts  # Review a specific file
+```
+
+```
+┌────────────────────────────────────────────────────────┐
+│  Code Review    Score: 84 / 100    Risk: LOW            │
+│  Good auth implementation with solid input validation   │
+└────────────────────────────────────────────────────────┘
+
+🔴 CRITICAL  (0)    No critical issues found
+
+🟡 WARNING  (1)
+  ⚠  src/auth/middleware.ts
+     No rate limiting on login — brute force risk
+
+💡 SUGGESTION  (3)
+  ◎  src/api/users.ts  — Consider caching DB query (called in loop)
+  ◎  src/utils/hash.ts  — Use crypto.timingSafeEqual for comparison
+  ◎  src/types.ts  — Add JSDoc to exported interfaces
+
+✅ PRAISE  (2)
+  ★  Clean separation of concerns across modules
+  ★  Comprehensive TypeScript types, no any casts
+```
+
+---
+
+### `commit` — AI-generated commit message
+
+```bash
+ai-review commit
+```
+
+```
+Proposed commit message:
+  feat(auth): add JWT middleware with bearer token validation
+
+  - Extracts token validation logic to utils/hash.ts
+  - Adds middleware factory pattern for reusable auth guards
+
+Use this message? (Y/n) █
+```
+
+---
+
+### `explain` — Explain a file or function
+
+```bash
+ai-review explain src/auth/middleware.ts
+ai-review explain src/api/users.ts --function getUserById
+```
 
 ---
 
 ## Setup
 
+**Option 1: Demo mode (no key needed)**
+
+Just run `ai-review review` — you'll get a realistic sample review with a `DEMO MODE` banner.
+
+**Option 2: Real reviews with Claude**
+
 ```bash
+# Get a free API key at console.anthropic.com
 export ANTHROPIC_API_KEY=sk-ant-...
-```
 
-Add that line to your `~/.zshrc` or `~/.bashrc` to persist it across sessions.
-
----
-
-## Usage
-
-### Review staged changes (default)
-
-```bash
-git add src/some-file.ts
-ai-review review
-```
-
-### Review last commit
-
-```bash
-ai-review review --last-commit
-```
-
-### Review a specific staged file
-
-```bash
-ai-review review --file src/auth/login.ts
-```
-
-### Generate an AI commit message
-
-```bash
-git add .
-ai-review commit
-# Proposed message is shown; press y to commit, n to abort
-```
-
-### Explain a file
-
-```bash
-ai-review explain src/lib/claude.ts
-```
-
-### Explain a specific function
-
-```bash
-ai-review explain src/lib/git.ts --function getStagedDiff
+# Or add to your shell profile
+echo 'export ANTHROPIC_API_KEY=sk-ant-...' >> ~/.zshrc
 ```
 
 ---
 
-## Demo Mode
+## Score Guide
 
-When `ANTHROPIC_API_KEY` is **not** set, `ai-review` runs in **demo mode**:
-
-- All commands still work and display realistic output
-- A `DEMO MODE` banner is shown at the top of each result
-- No network requests are made — great for CI preview or exploring the UI
+| Score | Meaning |
+|---|---|
+| 90–100 | 🟢 Ship it |
+| 75–89 | 🟢 Minor polish recommended |
+| 60–74 | 🟡 Address warnings before merging |
+| 45–59 | 🟡 Several issues to fix |
+| < 45 | 🔴 Do not merge — significant issues |
 
 ---
 
-## Environment Variables
+## Tech Stack
 
-| Variable | Required | Description |
+| Technology | Version | Purpose |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | No | Anthropic API key. Omit to use demo mode. |
-
----
-
-## Development
-
-```bash
-npm install
-npm run dev -- review        # run without building
-npm run build                # compile TypeScript → dist/
-npm run lint                 # ESLint
-```
+| Node.js | 20+ | Runtime |
+| TypeScript | 5.7 | Strict type safety |
+| @anthropic-ai/sdk | 0.39 | Claude API client |
+| simple-git | 3 | Git diff extraction |
+| Commander | 12 | CLI argument parsing |
+| Chalk | 5 | Terminal colors |
+| Boxen | 8 | Bordered output |
 
 ---
 
 ## License
 
-MIT © Mario Tavarez
+MIT © [Mario Tavarez](https://github.com/mariotavarez)
